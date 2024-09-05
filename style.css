@@ -1,0 +1,144 @@
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Apply default settings to all elements: no margin, no padding, box-sizing to include padding and border in element’s size, and use the Poppins font */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Style for the body: center the content, set minimum height to cover full screen, and apply a background color */
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #6563FF;
+}
+
+/* Style for the main container (wrapper): add padding, rounded corners, light background, and shadow */
+.wrapper{
+  padding: 25px;
+  border-radius: 10px;
+  background: #F8F8F8;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Flexbox alignment for the cards, card, and view containers to center content inside them */
+.cards, .card, .view{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style for the cards container: set height, width, and allow cards to wrap within the container */
+.cards{
+  height: 400px;
+  width: 400px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Style for each individual card: add pointer cursor, disable text selection, position relative for stacking views, and set 3D perspective for flip effect */
+.cards .card{
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  height: calc(100% / 4 - 10px); /* Divide container into a 4x4 grid */
+  width: calc(100% / 4 - 10px);
+}
+
+/* Add shaking animation for cards when they don't match */
+.card.shake{
+  animation: shake 0.35s ease-in-out;
+}
+
+/* Keyframes for the shake effect */
+@keyframes shake {
+  0%, 100%{
+    transform: translateX(0);
+  }
+  20%{
+    transform: translateX(-13px);
+  }
+  40%{
+    transform: translateX(13px);
+  }
+  60%{
+    transform: translateX(-8px);
+  }
+  80%{
+    transform: translateX(8px);
+  }
+}
+
+/* Style for both front and back views of the card */
+.card .view{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 7px;
+  background: #fff;
+  pointer-events: none; /* Disable pointer interaction on the view */
+  backface-visibility: hidden; /* Ensure only the front is visible when not flipped */
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.25s linear; /* Smooth flipping transition */
+}
+
+/* Style for the front view image (smaller size) */
+.card .front-view img{
+  width: 19px;
+}
+
+/* Style for the back view image (larger size) */
+.card .back-view img{
+  max-width: 45px;
+}
+
+/* Rotate the back view to face the back by default */
+.card .back-view{
+  transform: rotateY(-180deg);
+}
+
+/* When the card is flipped, the back view will rotate to the front */
+.card.flip .back-view{
+  transform: rotateY(0);
+}
+
+/* When the card is flipped, the front view will rotate to the back */
+.card.flip .front-view{
+  transform: rotateY(180deg);
+}
+
+/* Media query: Adjust the card sizes for screen widths below 700px */
+@media screen and (max-width: 700px) {
+  .cards{
+    height: 350px;
+    width: 350px;
+  }
+  .card .front-view img{
+    width: 17px;
+  }
+  .card .back-view img{
+    max-width: 40px;
+  }
+}
+
+/* Media query: Adjust the card sizes for screen widths below 530px */
+@media screen and (max-width: 530px) {
+  .cards{
+    height: 300px;
+    width: 300px;
+  }
+  .card .front-view img{
+    width: 15px;
+  }
+  .card .back-view img{
+    max-width: 35px;
+  }
+}
